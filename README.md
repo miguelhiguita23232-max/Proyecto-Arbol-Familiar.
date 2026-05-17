@@ -145,5 +145,5 @@ Antes de insertar padre-hijo, verifica que el padre no sea descendiente del hijo
 - Eyfer Rodríguez Quintero  
 - Miguel Ángel Grajales  
 
-**Curso:** Estructuras de Datos  
+**Curso:** Desarrollo del pensamiento Logico y analitico 3  
 **Stack:** Python · FastAPI · React · TypeScript · D3.js · SQLite

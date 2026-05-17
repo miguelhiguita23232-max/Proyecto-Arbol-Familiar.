@@ -88,7 +88,6 @@ def save_tree_to_db(tree, db: Session) -> None:
 
 
 def load_tree_from_db(db: Session):
-    """Carga la FamilyTree desde SQLite al iniciar la aplicación."""
     from models import FamilyTree, Person, Gender
 
     tree = FamilyTree()

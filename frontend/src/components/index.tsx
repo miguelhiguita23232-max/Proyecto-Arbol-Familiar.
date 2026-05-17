@@ -1,6 +1,9 @@
-// components/PersonCard.tsx — Tarjeta de información de una persona
-import type { Person } from "../api/client";
+import { useState } from "react";
+import type { Person, PersonCreate, TreeStats } from "../api/client";
 
+// ─────────────────────────────────────────────────────────────────────────
+// PersonCard
+// ─────────────────────────────────────────────────────────────────────────
 interface PersonCardProps {
   person: Person;
   allPersons: Record<string, Person>;
@@ -74,11 +77,9 @@ export function PersonCard({ person, allPersons, onEdit, onDelete, onClose }: Pe
   );
 }
 
-
-// components/PersonForm.tsx — Formulario para agregar / editar persona
-import { useState } from "react";
-import type { PersonCreate } from "../api/client";
-
+// ─────────────────────────────────────────────────────────────────────────
+// PersonForm
+// ─────────────────────────────────────────────────────────────────────────
 interface PersonFormProps {
   initial?: Partial<PersonCreate>;
   onSubmit: (data: PersonCreate) => Promise<boolean>;
@@ -116,7 +117,7 @@ export function PersonForm({ initial = {}, onSubmit, onCancel, title = "Nueva Pe
         {[
           { label: "Nombre *", name: "first_name", type: "text" },
           { label: "Apellido *", name: "last_name", type: "text" },
-          { label: "Fecha Nac. (YYYY-MM-DD)", name: "birth_date", type: "date" },
+          { label: "Fecha Nac.", name: "birth_date", type: "date" },
           { label: "Fecha Def.", name: "death_date", type: "date" },
           { label: "Lugar de nacimiento", name: "birthplace", type: "text" },
         ].map(({ label, name, type }) => (
@@ -159,10 +160,9 @@ export function PersonForm({ initial = {}, onSubmit, onCancel, title = "Nueva Pe
   );
 }
 
-
-// components/SearchPanel.tsx — Calculador de parentesco
-import { useState } from "react";
-
+// ─────────────────────────────────────────────────────────────────────────
+// SearchPanel
+// ─────────────────────────────────────────────────────────────────────────
 interface SearchPanelProps {
   persons: Person[];
   onSearch: (aId: string, bId: string) => Promise<{ relationship: string; path: string[] } | null>;
@@ -221,12 +221,8 @@ export function SearchPanel({ persons, onSearch, onFindAncestors, onFindDescenda
       <div className="border-t border-slate-100 mt-3 pt-3">
         <p className="text-slate-400 text-xs mb-2">Análisis rápido</p>
         <div className="space-y-1">
-          <select id="quick-person" className="block w-full rounded-lg border border-slate-200 px-2 py-1 text-xs"
-            onChange={(e) => {
-              if (e.target.value) {
-                onFindAncestors(e.target.value);
-              }
-            }}>
+          <select className="block w-full rounded-lg border border-slate-200 px-2 py-1 text-xs"
+            onChange={(e) => { if (e.target.value) onFindAncestors(e.target.value); }}>
             <option value="">Ancestros de...</option>
             {persons.map((p) => (
               <option key={p.id} value={p.id}>{p.first_name} {p.last_name}</option>
@@ -242,10 +238,9 @@ export function SearchPanel({ persons, onSearch, onFindAncestors, onFindDescenda
   );
 }
 
-
-// components/StatsPanel.tsx — Panel de estadísticas
-import type { TreeStats } from "../api/client";
-
+// ─────────────────────────────────────────────────────────────────────────
+// StatsPanel
+// ─────────────────────────────────────────────────────────────────────────
 export function StatsPanel({ stats }: { stats: TreeStats | null }) {
   if (!stats) return null;
   const items = [
